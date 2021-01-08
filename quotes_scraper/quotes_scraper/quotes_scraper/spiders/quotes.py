@@ -12,8 +12,21 @@ class QuotesSpider(scrapy.Spider):
         'http://quotes.toscrape.com/page/1/'
     ]
     custom_settings = {
-        'FEED_URI': 'quotes.json',
-        'FEED_FORMAT': 'json'
+        'FEEDS': {
+            'quotes.json': {
+                'format': 'json',
+                'encoding': 'utf8',
+                'stor_empty': False,
+                'fields': None,
+                'ident': 4,
+                'overwrite': True,
+            },
+        },
+        'CONCURRENT_REQUESTS': 24,
+        'MEMUSAGE_LIMIT_MB': 2048,
+        'MEMUSAGE_NOTIFY_MAIL': ['user_mail@gmail.com'],
+        'ROBOTSTXT_OBEY': True,
+        'USER_AGENT': 'PepitoMartinez'
     }
 
     def parse_only_quotes(self, response, **kwargs):
